@@ -1,4 +1,4 @@
-export interface createTask {
+export interface CreateTaskDto {
     title: string,
     status: boolean
 }

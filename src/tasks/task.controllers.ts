@@ -1,7 +1,8 @@
-import { Controller,Get,Post,Delete,Put, Patch,Req,Res,Body,Param } from "@nestjs/common";
+import { Controller,Get,Post,Delete,Put, Patch,Req,Res,Body,Param, Query } from "@nestjs/common";
 import { TasksService } from "./tasks.service";
 import { Request, Response } from "express";
-import { createTask } from "./dto/create-task.dto";
+import { CreateTaskDto } from "./dto/create-task.dto";
+import { UpdateTaskDto } from "./dto/update-task.dto";
 
 @Controller('/tasks')
 export class TaskController {
@@ -9,14 +10,12 @@ export class TaskController {
     constructor(private taskService:TasksService) {}
 
     @Get()
-    getAllTask(@Req() _request:Request,@Res() response:Response) {
-        try {
-            return response.status(200).json(this.taskService.getTasks())
-        } catch (error) {
-            return response.sendStatus(500)
-        } 
-    }
+    getAllTask(@Query() query:any,@Req() _request:Request,@Res() response:Response) {
+        console.log(query);
+        
+        return response.status(200).json(this.taskService.getTasks())
 
+    }
 
     @Get('/:id')
     getTask(@Param('id') id:string){
@@ -24,7 +23,7 @@ export class TaskController {
     }
 
     @Post()
-    createTask(@Body() task:createTask){
+    createTask(@Body() task:CreateTaskDto){
         return this.taskService.createTask(task)
     }
 
@@ -34,8 +33,8 @@ export class TaskController {
     }
 
     @Put()
-    updateTasks(){
-        return this.taskService.updateTask()
+    updateTasks(@Body() task:UpdateTaskDto){
+        return this.taskService.updateTask(task)
     }
 
     @Patch()
