@@ -11,7 +11,11 @@ export class TasksService{
     }
 
     createTask(task:any){
-        this.tasks.push(task)
+        this.tasks.push({
+            ...task,
+            id:this.tasks.length + 1
+        })
+
         return task
     }
 

@@ -16,8 +16,8 @@ export class TaskController {
         } 
     }
 
-    @Post()
 
+    @Post()
     createTask(@Body() task:any){
         return this.taskService.createTask(task)
     }
