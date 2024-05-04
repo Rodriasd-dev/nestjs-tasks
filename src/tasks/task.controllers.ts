@@ -1,5 +1,6 @@
-import { Controller,Get,Post,Delete,Put, Patch } from "@nestjs/common";
+import { Controller,Get,Post,Delete,Put, Patch,Req,Res,Body } from "@nestjs/common";
 import { TasksService } from "./tasks.service";
+import { Request, Response } from "express";
 
 @Controller('/tasks')
 export class TaskController {
@@ -7,13 +8,18 @@ export class TaskController {
     constructor(private taskService:TasksService) {}
 
     @Get()
-    getAllTask() {
-        return this.taskService.getTasks()
+    getAllTask(@Req() _request:Request,@Res() response:Response) {
+        try {
+            return response.status(200).json(this.taskService.getTasks())
+        } catch (error) {
+            return response.sendStatus(500)
+        } 
     }
 
     @Post()
-    createTask(){
-        return this.taskService.createTask()
+
+    createTask(@Body() task:any){
+        return this.taskService.createTask(task)
     }
 
     @Delete()
