@@ -1,4 +1,4 @@
-import { Controller,Get,Post,Delete,Put, Patch,Req,Res,Body } from "@nestjs/common";
+import { Controller,Get,Post,Delete,Put, Patch,Req,Res,Body,Param } from "@nestjs/common";
 import { TasksService } from "./tasks.service";
 import { Request, Response } from "express";
 
@@ -16,6 +16,11 @@ export class TaskController {
         } 
     }
 
+
+    @Get('/:id')
+    getTask(@Param('id') id:string){
+        return this.taskService.getTask(parseInt(id))
+    }
 
     @Post()
     createTask(@Body() task:any){
