@@ -5,13 +5,11 @@ import { TasksService } from "./tasks.service";
 export class TaskController {
     taskServices: TasksService
 
-    constructor(taskService:TasksService){
-        this.taskServices = taskService;
-    }
+    constructor(private taskService:TasksService) {}
 
     @Get('/tasks')
     getAllTask() {
-        return this.taskServices.getTasks();
+        return this.taskService.getTasks()
     }
 
 }
