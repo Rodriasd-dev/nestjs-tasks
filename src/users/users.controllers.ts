@@ -11,14 +11,18 @@ export class UserController {
 
     @Post()
     CreateUser(@Body() user: CreateUserDto,@Req() _request: Request,@Res() response: Response) {
-
-        return response.status(200).json(this.userService.CreateUser(user))
+        try {
+            return response.status(200).json(this.userService.createUser(user))
+        } catch (error) {
+            
+        }
+        
     }
 
     @Get()
     GetUsers(@Req() _request: Request, @Res() response: Response){
         
-        return response.status(200).json(this.userService.GetUser())
+        return response.status(200).json(this.userService.getUsers())
     }
 
 }
